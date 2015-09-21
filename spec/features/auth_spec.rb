@@ -6,14 +6,14 @@ feature "the signup process" do
 
   scenario "has a new user page" do
     visit new_user_url
-    expect(page).to have_content "New user"
+    expect(page).to have_content "Sign Up"
   end
 
   feature "signing up a user" do
     before(:each) do
       visit new_user_url
-      fill_in 'username', :with => user.username
-      fill_in 'password', :with => user.password
+      fill_in 'Username', :with => user.username
+      fill_in 'Password', :with => user.password
       click_button "Sign Up"
     end
 
