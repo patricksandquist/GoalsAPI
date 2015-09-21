@@ -14,5 +14,6 @@
 class Goal < ActiveRecord::Base
   belongs_to :user
 
-  validates :title, :user_id, :public_post, presence: true
+  validates :title, :user_id, presence: true
+  validates :public_post, inclusion: { in: [true, false] }
 end

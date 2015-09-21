@@ -13,10 +13,10 @@
 
 FactoryGirl.define do
   factory :goal do
-    title "MyString"
-body "MyString"
-public_post false
-user nil
+    title { "#{Faker::Hacker.ingverb} #{Faker::Hacker.noun}"}
+    body { "#{Faker::Hacker.say_something_smart}" }
+    public_post { ['public', 'private'].sample }
+    user_id 3
   end
 
 end

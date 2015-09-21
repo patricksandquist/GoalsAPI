@@ -44,4 +44,10 @@ class GoalsController < ApplicationController
     @goal.destroy
     redirect_to goals_url
   end
+
+  private
+
+  def goal_params
+    params.require(:goal).permit(:title, :body, :public_post)
+  end
 end
