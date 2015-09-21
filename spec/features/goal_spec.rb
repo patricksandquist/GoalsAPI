@@ -1,8 +1,6 @@
 require 'spec_helper'
 require 'rails_helper'
 
-
-
 feature "Creating goals" do
   given(:goal) { create(:goal) }
 
@@ -44,18 +42,89 @@ feature "Creating goals" do
 
 end
 
-#able to make / create goals
-  # Have to specify title
-  # Direct to show page
-  # Visit index page
+feature "Editing Goals" do
+  given(:goal) { create(:goal) }
 
-#editting goals
-  # change the tile
-  #change the body
-  # public_post
-  # If there are public goals can delete your own
+  before(:each) do
+    sign_up
+    make_goal(goal.title, goal.body, goal.public_post)
+  end
 
-#destroy goals
-  #deleted from Index page
-  # can only delete your own goals
-  # If there are public goals can delete your own
+  scenario "Edits goal title" do
+    visit goals_url
+    click_link(goal.title)
+    click_link("Edit")
+    fill_in 'Title', with: "This is the edited title"
+    click_button "Edit Goal"
+    expect(page).to have_content("This is the edited title")
+  end
+
+  scenario "Edits goal body" do
+    visit goals_url
+    click_link(goal.title)
+    click_link("Edit")
+    fill_in 'Body', with: "This is the edited body"
+    click_button "Edit Goal"
+    expect(page).to have_content("This is the edited body")
+  end
+
+  scenario "Edits goal title on index page" do
+    visit goals_url
+    click_link(goal.title)
+    click_link("Edit")
+    fill_in 'Title', with: "This is the edited title"
+    click_button "Edit Goal"
+    visit goals_url
+    expect(page).to have_content("This is the edited title")
+  end
+
+  scenario "Edits goal privacy" do
+    sign_out
+    sign_up
+    make_goal(goal.title, goal.body, "public")
+    visit goals_url
+    click_link(goal.title)
+    click_link("Edit")
+    choose('private')
+    click_button "Edit Goal"
+    sign_out
+    sign_up
+    expect(page).to_not have_content(goal.title)
+  end
+
+  scenario "Does not update an untitled goal" do
+    visit goals_url
+    click_link(goal.title)
+    click_link("Edit")
+    fill_in 'Title', with: ""
+    click_button "Edit Goal"
+    expect(page).to have_content("Title can't be blank")
+  end
+
+
+end
+
+feature "Deleting Goals" do
+  given(:goal) { create(:goal) }
+
+  before(:each) do
+    sign_up
+    make_goal(goal.title, goal.body, goal.public_post)
+  end
+
+  scenario "Deletes a goal" do
+    visit goals_url
+    click_link(goal.title)
+    click_link("Delete")
+    expect(page).to_not have_content(goal.title)
+  end
+
+  scenario "Cannot delete other's goal" do
+    sign_out
+    sign_up
+    visit goals_url
+    click_link(goal.title)
+    expect(page).to_not have_content("Delete")
+  end
+
+end
