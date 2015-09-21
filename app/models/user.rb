@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_token
 
+  has_many :goals
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)
