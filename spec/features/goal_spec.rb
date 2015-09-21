@@ -81,15 +81,15 @@ feature "Editing Goals" do
   scenario "Edits goal privacy" do
     sign_out
     sign_up
-    make_goal(goal.title, goal.body, "public")
+    make_goal("Privatize This", "", "public")
     visit goals_url
-    click_link(goal.title)
+    click_link("Privatize This")
     click_link("Edit")
     choose('private')
     click_button "Edit Goal"
     sign_out
     sign_up
-    expect(page).to_not have_content(goal.title)
+    expect(page).to_not have_content("Privatize This")
   end
 
   scenario "Does not update an untitled goal" do
@@ -115,7 +115,7 @@ feature "Deleting Goals" do
   scenario "Deletes a goal" do
     visit goals_url
     click_link(goal.title)
-    click_link("Delete")
+    click_button("Delete")
     expect(page).to_not have_content(goal.title)
   end
 
