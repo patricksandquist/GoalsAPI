@@ -1,0 +1,25 @@
+<h1>New goal</h1>
+<form action="<%= goals_url %>" method="post">
+  <%= auth_token %>
+  <label>
+    Title
+    <input type="text" name="goal[title]" value="<%= @goal.title %>">
+  </label>
+  <br>
+  <label>
+    Body
+    <input type="text" name="goal[body]" value="<%= @goal.body %>">
+  </label>
+  <br>
+
+  <input type="radio"
+         name="goal[public_post]"
+         id="public"
+         value=<%= true %>>Public<br>
+  <input type="radio"
+         name="goal[public_post]"
+         id="private"
+         value=<%= false %>>Private<br>
+
+  <input type="submit" value="Create New Goal">
+</form>

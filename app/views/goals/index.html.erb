@@ -2,7 +2,9 @@
 
 <% @goals.each do |goal| %>
   <ul>
-    <li><%= link_to goal.title, goal_url(goal) %></li>
+    <% if (goal.public_post == false && current_user.id == goal.user_id ) || goal.public_post %>
+      <li><%= link_to goal.title, goal_url(goal) %></li>
+    <% end %>
   </ul>
 <% end %>
 

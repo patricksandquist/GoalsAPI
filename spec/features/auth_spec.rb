@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rails_helper'
 
-feature "the signup process" do
+feature "the Authentication process" do
   given(:user) { create(:user) }
 
   scenario "has a new user page" do
