@@ -2,3 +2,7 @@
 <%= @goal.body %>
 
 <%= link_to "Index", goals_url %>
+<% if @goal.user_id == current_user.id %>
+  <%= link_to "Edit", edit_goal_url(@goal) %>
+  <%= button_to "Delete", goal_url(@goal), method: :delete %>
+<% end %>
