@@ -26,18 +26,16 @@ RSpec.configure do |config|
 
 end
 
-def sign_up
-  username = Faker::Internet.user_name
-  password = Faker::Internet.password
+def sign_up(username = nil, password = nil)
+  username ||= Faker::Internet.user_name
+  password ||= Faker::Internet.password
   visit "/users/new"
   fill_in "Username", with: username
   fill_in "Password", with: password
   click_button 'Sign Up'
 end
 
-def sign_in
-  username = Faker::Internet.user_name
-  password = Faker::Internet.password
+def sign_in(username, password)
   visit "/session/new"
   fill_in "Username", with: username
   fill_in "Password", with: password

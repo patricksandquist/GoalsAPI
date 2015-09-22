@@ -12,8 +12,10 @@
 
 FactoryGirl.define do
   factory :user_comment do
-    body "MyText"
-user nil
+    body { "#{Faker::Hacker.say_something_smart}" }
+    author_id 4
+    user_id 3
   end
+
 
 end
