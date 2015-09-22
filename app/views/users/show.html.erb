@@ -1,0 +1,21 @@
+<h1><%= @user.username %></h1>
+
+<% @user.comments.each do |comment| %>
+  <%= comment.body %>
+  <% if comment.author_id == current_user.id %>
+    <%= button_to "Delete",
+        user_user_comment_url(comment.user_id, comment.id),
+        method: :delete %>
+  <% end %>
+  <br>
+<% end %>
+
+<form action="<%= user_user_comments_url(@user) %>" method="post">
+  <%= auth_token %>
+  <label>
+    Comment
+    <textarea name="user_comments[body]" rows="8" cols="40"></textarea>
+  </label>
+
+  <input type="submit" value="Comment">
+</form>
